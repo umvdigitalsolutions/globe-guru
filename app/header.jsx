@@ -9,6 +9,7 @@ export default function Header() {
     { href: "/", label: "Home" },
     { href: "/Destinations", label: "Destinations" },
     { href: "/Packages", label: "Packages" },
+    { href: "/Blog", label: "Blog" },
     { href: "/About", label: "About Us" },
     { href: "/Contact", label: "Contact", type: "button" }
   ];

@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "../../components/JsonLd";
 import { DESTINATIONS } from "../../data/destinations";
+import {
+  buildDestinationBreadcrumbSchema,
+  buildTouristTripSchema,
+} from "../../lib/schema";
 
 export function generateStaticParams() {
   return DESTINATIONS.map((item) => ({
@@ -32,6 +37,13 @@ export default async function DestinationDetailPage({ params }) {
 
   return (
     <main className="bg-[#f8fafc] pb-16">
+      <JsonLd
+        data={[
+          buildDestinationBreadcrumbSchema(destination),
+          buildTouristTripSchema(destination),
+        ]}
+      />
+
       {/* Hero */}
       <section className="relative h-[70vh] min-h-[520px] overflow-hidden">
         <Image

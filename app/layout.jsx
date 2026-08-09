@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./footer";
 import Header from "./header";
+import { SITE_URL } from "./lib/schema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://globeguruholidays.com"),
+  metadataBase: new URL(SITE_URL),
 
   title: {
     default: "GlobeGuru Holidays | Luxury Travel Packages & Custom Holidays",
@@ -54,7 +55,7 @@ export const metadata = {
     title: "GlobeGuru Holidays | Luxury Travel Packages & Custom Holidays",
     description:
       "Plan premium holidays, honeymoon trips, family vacations and international travel experiences with GlobeGuru Holidays.",
-    url: "https://globeguru.org",
+    url: SITE_URL,
     siteName: "GlobeGuru Holidays",
     images: [
       {

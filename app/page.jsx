@@ -3,7 +3,9 @@ import Link from "next/link";
 import SearchBar from "./components/SearchBar";
 import FeaturedCard from "./components/FeaturedCard";
 import HeroCarousel from "./components/HeroCarousel";
+import JsonLd from "./components/JsonLd";
 import { DESTINATIONS } from "./data/destinations";
+import { homePageSchema, SITE_URL } from "./lib/schema";
 
 export const metadata = {
   title:
@@ -30,14 +32,14 @@ export const metadata = {
   creator: "GlobeGuru Holidays",
   publisher: "GlobeGuru Holidays",
   alternates: {
-    canonical: "https://globeguruholidays.com",
+    canonical: SITE_URL,
   },
   openGraph: {
     title:
       "GlobeGuru Holidays | Luxury Travel Packages & Custom Holiday Planning",
     description:
       "Discover curated holidays, premium stays, honeymoon packages, family vacations and international travel experiences with GlobeGuru Holidays.",
-    url: "https://globeguruholidays.com",
+    url: SITE_URL,
     siteName: "GlobeGuru Holidays",
     images: [
       {
@@ -88,45 +90,9 @@ const categories = [
 export default function Home() {
   const featuredDestinations = DESTINATIONS.slice(0, 6);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    name: "GlobeGuru Holidays",
-    url: "https://globeguruholidays.com",
-    logo: "https://globeguruholidays.com/logo.png",
-    image: "https://globeguruholidays.com/v1.jpg",
-    description:
-      "GlobeGuru Holidays offers luxury travel packages, honeymoon trips, family vacations, international tours and custom holiday planning.",
-    telephone: "+919818994463",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "2060 Romano Tower, Mahagun Mascot, Crossing Republik",
-      addressLocality: "Ghaziabad",
-      addressRegion: "Uttar Pradesh",
-      postalCode: "201016",
-      addressCountry: "IN",
-    },
-    areaServed: [
-      "India",
-      "Dubai",
-      "Bali",
-      "Thailand",
-      "Vietnam",
-      "Nepal",
-      "Singapore",
-      "Maldives",
-      "Europe",
-    ],
-    priceRange: "₹₹",
-    sameAs: [],
-  };
-
   return (
     <main className="overflow-hidden bg-[#f7f3ea] text-slate-950">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={homePageSchema} />
 
       {/* HERO */}
       <section className="relative overflow-hidden px-3 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
