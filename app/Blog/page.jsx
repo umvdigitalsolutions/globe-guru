@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "../components/JsonLd";
-import { BLOG_POSTS } from "../data/blogPosts";
+import { getPublicContent } from "../lib/content";
 import { SITE_URL } from "../lib/schema";
 
 export const metadata = {
@@ -40,14 +40,6 @@ const blogSchema = {
     name: "GlobeGuru Holidays",
     url: `${SITE_URL}/`,
   },
-  mainEntity: BLOG_POSTS.map((post) => ({
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.description,
-    url: `${SITE_URL}/Blog/${post.slug}`,
-    datePublished: post.date,
-    image: `${SITE_URL}${post.image}`,
-  })),
 };
 
 function formatDate(date) {
@@ -58,10 +50,16 @@ function formatDate(date) {
   }).format(new Date(date));
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const BLOG_POSTS = await getPublicContent("blogs");
+  const schema = { ...blogSchema, mainEntity: BLOG_POSTS.map((post) => ({
+    "@type": "BlogPosting", headline: post.title, description: post.description,
+    url: `${SITE_URL}/Blog/${post.slug}`, datePublished: post.date,
+    image: post.image.startsWith("/") ? `${SITE_URL}${post.image}` : post.image,
+  })) };
   return (
     <main className="relative overflow-hidden bg-[#f7f3ea]">
-      <JsonLd data={blogSchema} />
+      <JsonLd data={schema} />
 
       <section className="relative overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.20),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.18),transparent_32%)]" />
