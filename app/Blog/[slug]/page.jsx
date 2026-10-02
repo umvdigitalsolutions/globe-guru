@@ -3,21 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "../../components/JsonLd";
-import { BLOG_POSTS, getBlogPost } from "../../data/blogPosts";
+import { getPublicPost } from "../../lib/content";
 import { buildBreadcrumbSchema, SITE_URL } from "../../lib/schema";
 
 const linkClass =
   "font-bold text-sky-700 underline decoration-sky-200 underline-offset-4 hover:text-sky-900";
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
-    slug: post.slug,
-  }));
-}
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getPublicPost(slug);
 
   if (!post) {
     return {};
@@ -151,7 +146,7 @@ function ArticleSection({ section }) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getPublicPost(slug);
 
   if (!post) {
     notFound();

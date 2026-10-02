@@ -1,22 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import JsonLd from "../../components/JsonLd";
-import { DESTINATIONS } from "../../data/destinations";
+import { getPublicContent } from "../../lib/content";
 import {
   buildDestinationBreadcrumbSchema,
   buildTouristTripSchema,
 } from "../../lib/schema";
 
-export function generateStaticParams() {
-  return DESTINATIONS.map((item) => ({
-    slug: item.slug,
-  }));
-}
 
 export default async function DestinationDetailPage({ params }) {
   const { slug } = await params;
 
-  const destination = DESTINATIONS.find((item) => item.slug === slug);
+  const destination = (await getPublicContent("destinations")).find((item) => item.slug === slug);
 
   if (!destination) {
     return (

@@ -4,7 +4,8 @@ import SearchBar from "./components/SearchBar";
 import FeaturedCard from "./components/FeaturedCard";
 import HeroCarousel from "./components/HeroCarousel";
 import JsonLd from "./components/JsonLd";
-import { DESTINATIONS } from "./data/destinations";
+import { getPublicContent } from "./lib/content";
+import ReviewsSection from "./components/ReviewsSection";
 import { homePageSchema, SITE_URL } from "./lib/schema";
 
 export const metadata = {
@@ -87,8 +88,8 @@ const categories = [
   },
 ];
 
-export default function Home() {
-  const featuredDestinations = DESTINATIONS.slice(0, 6);
+export default async function Home() {
+  const featuredDestinations = (await getPublicContent("destinations")).slice(0, 6);
 
   return (
     <main className="overflow-hidden bg-[#f7f3ea] text-slate-950">
@@ -323,6 +324,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ReviewsSection />
 
       {/* WHY CHOOSE US */}
       <section className="relative bg-[#f7f3ea] py-16 sm:py-20">

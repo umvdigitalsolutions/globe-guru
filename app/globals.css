@@ -222,6 +222,12 @@ body.modal-open {
   -webkit-tap-highlight-color: transparent;
 }
 
+.review-dialog { max-height: calc(100dvh - 32px); overflow-y: auto; }
+.review-dialog .admin-form { display: grid; gap: 16px; }
+.review-dialog .admin-form label { display: grid; gap: 7px; font-size: 13px; color: #52525b; }
+.review-dialog input:not([type="radio"]), .review-dialog textarea { width: 100%; border: 1px solid #d4d4d8; padding: 10px 12px; border-radius: 5px; color: #27272a; }
+.review-dialog .admin-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; background: #047857; border-radius: 6px; color: #fff; font-size: 14px; }
+
 html.preloader-active {
   overflow: hidden;
 }

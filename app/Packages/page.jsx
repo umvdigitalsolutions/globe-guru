@@ -1,104 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const PACKAGES = [
-  {
-    id: "honeymoon",
-    title: "Honeymoon Package",
-    days: 6,
-    tag: "Romantic Escape",
-    image: "/package-honeymoon.jpg",
-    desc: "Romantic stays, candlelight dinners, private transfers and curated experiences for two.",
-  },
-  {
-    id: "budget",
-    title: "Budget Package",
-    days: 5,
-    tag: "Smart Travel",
-    image: "/package-budget.jpg",
-    desc: "Affordable stays, group transfers and local-experience recommendations to stretch your travel budget.",
-  },
-  {
-    id: "luxury",
-    title: "Luxury Package",
-    days: 8,
-    tag: "5★ Premium",
-    image: "/package-luxury.jpg",
-    desc: "5-star hotels, private guides, exclusive experiences and premium transfers.",
-  },
-  {
-    id: "premium",
-    title: "Premium Package",
-    days: 7,
-    tag: "Most Flexible",
-    image: "/package-premium.jpg",
-    desc: "High-comfort hotels, handpicked tours and flexible add-ons for a tailored trip.",
-  },
-  {
-    id: "relax",
-    title: "Relax Package",
-    days: 4,
-    tag: "Wellness",
-    image: "/package-relax.jpg",
-    desc: "Wellness-focused escapes with spas, yoga sessions and slow-paced itineraries.",
-  },
-  {
-    id: "group",
-    title: "Group Package",
-    days: 6,
-    tag: "Group Friendly",
-    image: "/package-group.jpg",
-    desc: "Coordinated group travel with shared transport, group activities and local guides.",
-  },
-  {
-    id: "school-college",
-    title: "School & College Trips",
-    days: 4,
-    tag: "Student Tours",
-    image: "/school-college-trips.jpg",
-    desc: "Safe, supervised educational trips with group transport, stays, meals, sightseeing and activity planning for schools and colleges.",
-  },
-  {
-    id: "corporate",
-    title: "Corporate Package",
-    days: 3,
-    tag: "Business Travel",
-    image: "/package-corporate.jpg",
-    desc: "Business-friendly itineraries, meeting-ready hotels and efficient transfers.",
-  },
-  {
-    id: "solo",
-    title: "Solo Trip Package",
-    days: 5,
-    tag: "Safe & Curated",
-    image: "/package-solo.jpg",
-    desc: "Safe solo-traveler options with recommended activities and social meetups.",
-  },
-  {
-    id: "couple-safety",
-    title: "Wedding & Travel Safety Package",
-    days: null,
-    tag: "Coming Soon",
-    desc: "Confidential assistance for consenting adults planning to marry, including safe stay, travel support, marriage-related assistance, legal guidance where required, and honeymoon arrangements.",
-    points: [
-      "Safe Hotel Stay",
-      "Transportation Assistance",
-      "Marriage Assistance",
-      "Legal Guidance",
-      "Honeymoon Planning",
-      "Police Protection",
-    ],
-    comingSoon: true,
-  },
-];
-
+import { getPublicContent } from "../lib/content";
 export const metadata = {
   title: "Travel Packages | GlobeGuru Holidays",
   description:
     "Explore honeymoon packages, budget tours, luxury holidays, premium trips, school and college trips, corporate travel, group packages and solo trip packages by GlobeGuru Holidays.",
 };
 
-export default function PackagesPage() {
+export default async function PackagesPage() {
+  const PACKAGES = await getPublicContent("packages");
   return (
     <main className="relative overflow-hidden bg-[#f7f3ea]">
       {/* Background */}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Star } from "lucide-react";
 
 export const metadata = {
   title: "Contact Us | GlobeGuru Holidays",
@@ -32,6 +33,9 @@ export default function ContactPage() {
             Tell us your destination, travel dates, budget and preferences. Our
             team will help you with a customized travel plan.
           </p>
+          <Link href="/Reviews" className="mt-6 inline-flex items-center gap-2 rounded-md border border-emerald-700/25 bg-white px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50">
+            <Star size={17} /> Write a review
+          </Link>
         </header>
 
         {/* Contact Cards */}
