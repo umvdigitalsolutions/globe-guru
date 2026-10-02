@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "./footer";
 import Header from "./header";
 import { SITE_URL } from "./lib/schema";
+import Preloader from "./components/Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,7 +112,9 @@ export default function RootLayout({ children }) {
 
         <div className="pointer-events-none fixed inset-0 -z-10 opacity-[0.22] [background-image:linear-gradient(rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.06)_1px,transparent_1px)] [background-size:76px_76px]" />
 
-        <div className="relative z-10">
+        <Preloader />
+
+        <div id="site-content" className="relative z-10">
           <Header />
 
           <main>{children}</main>

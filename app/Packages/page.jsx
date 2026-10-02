@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const PACKAGES = [
   {
@@ -6,6 +7,7 @@ const PACKAGES = [
     title: "Honeymoon Package",
     days: 6,
     tag: "Romantic Escape",
+    image: "/package-honeymoon.jpg",
     desc: "Romantic stays, candlelight dinners, private transfers and curated experiences for two.",
   },
   {
@@ -13,6 +15,7 @@ const PACKAGES = [
     title: "Budget Package",
     days: 5,
     tag: "Smart Travel",
+    image: "/package-budget.jpg",
     desc: "Affordable stays, group transfers and local-experience recommendations to stretch your travel budget.",
   },
   {
@@ -20,6 +23,7 @@ const PACKAGES = [
     title: "Luxury Package",
     days: 8,
     tag: "5★ Premium",
+    image: "/package-luxury.jpg",
     desc: "5-star hotels, private guides, exclusive experiences and premium transfers.",
   },
   {
@@ -27,6 +31,7 @@ const PACKAGES = [
     title: "Premium Package",
     days: 7,
     tag: "Most Flexible",
+    image: "/package-premium.jpg",
     desc: "High-comfort hotels, handpicked tours and flexible add-ons for a tailored trip.",
   },
   {
@@ -34,6 +39,7 @@ const PACKAGES = [
     title: "Relax Package",
     days: 4,
     tag: "Wellness",
+    image: "/package-relax.jpg",
     desc: "Wellness-focused escapes with spas, yoga sessions and slow-paced itineraries.",
   },
   {
@@ -41,13 +47,23 @@ const PACKAGES = [
     title: "Group Package",
     days: 6,
     tag: "Group Friendly",
+    image: "/package-group.jpg",
     desc: "Coordinated group travel with shared transport, group activities and local guides.",
+  },
+  {
+    id: "school-college",
+    title: "School & College Trips",
+    days: 4,
+    tag: "Student Tours",
+    image: "/school-college-trips.jpg",
+    desc: "Safe, supervised educational trips with group transport, stays, meals, sightseeing and activity planning for schools and colleges.",
   },
   {
     id: "corporate",
     title: "Corporate Package",
     days: 3,
     tag: "Business Travel",
+    image: "/package-corporate.jpg",
     desc: "Business-friendly itineraries, meeting-ready hotels and efficient transfers.",
   },
   {
@@ -55,14 +71,31 @@ const PACKAGES = [
     title: "Solo Trip Package",
     days: 5,
     tag: "Safe & Curated",
+    image: "/package-solo.jpg",
     desc: "Safe solo-traveler options with recommended activities and social meetups.",
+  },
+  {
+    id: "couple-safety",
+    title: "Wedding & Travel Safety Package",
+    days: null,
+    tag: "Coming Soon",
+    desc: "Confidential assistance for consenting adults planning to marry, including safe stay, travel support, marriage-related assistance, legal guidance where required, and honeymoon arrangements.",
+    points: [
+      "Safe Hotel Stay",
+      "Transportation Assistance",
+      "Marriage Assistance",
+      "Legal Guidance",
+      "Honeymoon Planning",
+      "Police Protection",
+    ],
+    comingSoon: true,
   },
 ];
 
 export const metadata = {
   title: "Travel Packages | GlobeGuru Holidays",
   description:
-    "Explore honeymoon packages, budget tours, luxury holidays, premium trips, corporate travel, group packages and solo trip packages by GlobeGuru Holidays.",
+    "Explore honeymoon packages, budget tours, luxury holidays, premium trips, school and college trips, corporate travel, group packages and solo trip packages by GlobeGuru Holidays.",
 };
 
 export default function PackagesPage() {
@@ -99,39 +132,87 @@ export default function PackagesPage() {
           {PACKAGES.map((p) => (
             <article
               key={p.id}
-              className="group flex h-full flex-col overflow-hidden rounded-[30px] border border-white/70 bg-white/75 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_25px_75px_rgba(15,23,42,0.14)]"
+              className={
+                p.comingSoon
+                  ? "flex h-full flex-col overflow-hidden rounded-[30px] border border-dashed border-slate-300 bg-white/55 p-6"
+                  : "group flex h-full flex-col overflow-hidden rounded-[30px] border border-white/70 bg-white/75 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_25px_75px_rgba(15,23,42,0.14)]"
+              }
             >
+              {p.image ? (
+                <Image
+                  src={p.image}
+                  alt={`${p.title} image`}
+                  width={900}
+                  height={563}
+                  className="-mx-2 mb-5 aspect-[16/10] w-[calc(100%+1rem)] rounded-[24px] object-cover shadow-[0_14px_34px_rgba(15,23,42,0.12)]"
+                />
+              ) : null}
+
               <div className="mb-5 flex items-center justify-between gap-3">
-                <span className="rounded-full border border-[#d4af37]/30 bg-[#fff8df] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-[#8a6a12]">
+                <span
+                  className={
+                    p.comingSoon
+                      ? "rounded-full border border-slate-300 bg-slate-100 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-slate-500"
+                      : "rounded-full border border-[#d4af37]/30 bg-[#fff8df] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-[#8a6a12]"
+                  }
+                >
                   {p.tag}
                 </span>
 
-                <span className="rounded-full bg-slate-950 px-3 py-1.5 text-xs font-black text-white">
-                  {p.days}D
-                </span>
+                {p.days ? (
+                  <span className="rounded-full bg-slate-950 px-3 py-1.5 text-xs font-black text-white">
+                    {p.days}D
+                  </span>
+                ) : null}
               </div>
 
-              <div className="mb-5 h-1.5 w-12 rounded-full bg-gradient-to-r from-[#d4af37] to-sky-500 transition-all duration-300 group-hover:w-20" />
+              {p.comingSoon ? (
+                <div className="mb-5 h-1.5 w-12 rounded-full bg-slate-300" />
+              ) : (
+                <div className="mb-5 h-1.5 w-12 rounded-full bg-gradient-to-r from-[#d4af37] to-sky-500 transition-all duration-300 group-hover:w-20" />
+              )}
 
               <h2 className="text-xl font-black leading-tight text-slate-950">
                 {p.title}
               </h2>
 
-              <p className="mt-3 min-h-[112px] text-sm leading-7 text-slate-600">
+              <p
+                className={
+                  p.comingSoon
+                    ? "mt-3 text-[13px] leading-6 text-slate-600"
+                    : "mt-3 min-h-[112px] text-sm leading-7 text-slate-600"
+                }
+              >
                 {p.desc}
               </p>
 
-              <div className="mt-auto border-t border-slate-200 pt-5">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-slate-500">
-                    Typical Duration
-                  </span>
+              {p.points ? (
+                <ul className="mt-3 list-disc pl-5 text-[13px] leading-5 text-slate-600">
+                  {p.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
 
-                  <span className="text-sm font-black text-slate-950">
-                    {p.days} day{p.days > 1 ? "s" : ""}
+              {p.comingSoon ? (
+                <div className="mt-auto border-t border-dashed border-slate-300 pt-5">
+                  <span className="text-[13px] font-bold text-slate-400">
+                    Service Under Development
                   </span>
                 </div>
-              </div>
+              ) : (
+                <div className="mt-auto border-t border-slate-200 pt-5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold text-slate-500">
+                      Typical Duration
+                    </span>
+
+                    <span className="text-sm font-black text-slate-950">
+                      {p.days} day{p.days > 1 ? "s" : ""}
+                    </span>
+                  </div>
+                </div>
+              )}
             </article>
           ))}
         </div>
