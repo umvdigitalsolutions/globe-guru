@@ -222,6 +222,143 @@ body.modal-open {
   -webkit-tap-highlight-color: transparent;
 }
 
+html.preloader-active {
+  overflow: hidden;
+}
+
+.travel-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #e9f5fa;
+  transition: opacity 450ms ease, visibility 450ms ease;
+}
+
+.travel-preloader--leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader-sky {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.preloader-cloud {
+  position: absolute;
+  width: 260px;
+  height: 70px;
+  border-radius: 100px;
+  background: #fff;
+  opacity: 0.8;
+  animation: preloader-cloud-drift 10s linear infinite;
+}
+
+.preloader-cloud::before,
+.preloader-cloud::after {
+  content: "";
+  position: absolute;
+  bottom: 24px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.preloader-cloud::before { left: 40px; width: 105px; height: 105px; }
+.preloader-cloud::after { right: 35px; width: 130px; height: 130px; }
+.preloader-cloud--one { top: 20%; left: 8%; animation-delay: -3s; }
+.preloader-cloud--two { top: 35%; left: 80%; transform: scale(0.65); animation-delay: -6s; opacity: 0.6; }
+.preloader-cloud--three { bottom: 12%; left: 22%; animation-delay: -1s; }
+.preloader-cloud--four { bottom: 22%; left: 75%; animation-delay: -8s; opacity: 0.5; }
+
+.preloader-flight {
+  position: absolute;
+  top: calc(50% - 190px);
+  left: 0;
+  width: 340px;
+  aspect-ratio: 2135 / 736;
+  animation: preloader-fly 2.8s cubic-bezier(0.3, 0, 0.65, 1) both;
+}
+
+.preloader-plane { position: relative; width: 100%; height: auto; }
+.preloader-contrail {
+  position: absolute;
+  right: 93%;
+  top: 59%;
+  width: min(45vw, 400px);
+  height: 2px;
+  background: #fff;
+  opacity: 0.65;
+  transform: rotate(1deg);
+  transform-origin: right;
+}
+
+.preloader-brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(80vw, 420px);
+  transform: translate(-50%, -40%);
+  animation: preloader-reveal 900ms 900ms ease both;
+}
+
+.preloader-logo { width: 100%; height: auto; mix-blend-mode: multiply; }
+.preloader-progress {
+  width: 100px;
+  height: 3px;
+  margin: 20px auto 0;
+  overflow: hidden;
+  background: #c9dfe6;
+}
+.preloader-progress span {
+  display: block;
+  height: 100%;
+  background: #059669;
+  transform-origin: left;
+  animation: preloader-progress 3s ease-out both;
+}
+.preloader-skip {
+  position: absolute;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  color: #385663;
+  font-size: 13px;
+  cursor: pointer;
+}
+.preloader-skip:hover { text-decoration: underline; }
+
+@keyframes preloader-fly {
+  0% { transform: translate(-400px, 45px) rotate(-3deg); }
+  45% { transform: translate(calc(48vw - 50%), 0) rotate(-2deg); }
+  100% { transform: translate(calc(100vw + 400px), -75px) rotate(-6deg); }
+}
+@keyframes preloader-cloud-drift {
+  from { translate: 25vw 0; }
+  to { translate: -110vw 0; }
+}
+@keyframes preloader-reveal {
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes preloader-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (max-width: 600px) {
+  .preloader-flight { width: 230px; top: calc(50% - 155px); }
+  .preloader-cloud { scale: 0.7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader-flight { display: none; }
+  .preloader-brand { animation: none; }
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {
